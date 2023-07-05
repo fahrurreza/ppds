@@ -17,8 +17,7 @@
                     @csrf
                     <div class="form-group boxed">
                         <label class="label" for="city5">Portofolio</label>
-                        <select name="menu" class="form-control"
-                            onChange="top.location.href=this.options[this.selectedIndex].value;" value="GO">
+                        <select name="menu" class="form-control" disabled>
                             <option selected value="{{route('tindakan-portofolio')}}">Pelayanan/Tindakan</option>
                             <option value="{{route('case-portofolio')}}">Case Report</option>
                             <option value="{{route('karya-portofolio')}}">Karya ilmiah</option>
@@ -34,7 +33,7 @@
                                 <i class="chip-icon bg-info">
                                     <ion-icon name="alarm"></ion-icon>
                                 </i>
-                                <span class="chip-label" id="time"></span>
+                                <span class="chip-label" id="time">{{$data['portofolio']->portofolio->create_date}}</span>
                             </div>
                         </div>
                     </div>
@@ -55,10 +54,13 @@
                         <input type="hidden" name="portofolio_id" value="1">
                         <div class="input-wrapper">
                             <label class="label" for="hospital">Hospital</label>
-                            <select class="form-control custom-select select2" id="hospital" name="hospital_id" required>
-                                <option value=''>{{$data['portofolio']->trx_id}}</option>
+                            <select class="form-control custom-select select2" id="hospital" name="hospital_id" disabled>
                                 @foreach($data['hospital'] as $option)
-                                <option value="{{$option->hospital_id}}">{{$option->hospital_name}}</option>
+                                    @if($option->hospital_id == $data['portofolio']->hospital_id)
+                                    <option selected value="{{$option->hospital_id}}">{{$option->hospital_name}}</option>
+                                    @else
+                                    <option value="{{$option->hospital_id}}">{{$option->hospital_name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             <i class="clear-input">
@@ -71,10 +73,13 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="supervisor">Supervisor</label>
-                            <select class="form-control custom-select" id="supervisor" name="supervisor_id">
-                                <option>Pilih Supervisor </option>
+                            <select class="form-control custom-select" id="supervisor" name="supervisor_id" disabled>
                                 @foreach($data['supervisor'] as $option)
-                                <option value="{{$option->id}}">{{$option->user_name}}</option>
+                                    @if($data['portofolio']->supervisor_id == $option->id)
+                                    <option selected value="{{$option->id}}">{{$option->user_name}}</option>
+                                    @else
+                                    <option value="{{$option->id}}">{{$option->user_name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             <i class="clear-input">
@@ -87,10 +92,14 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="kegiatan">Kegiatan</label>
-                            <select class="form-control custom-select" id="kegiatan" name="stase_id">
+                            <select class="form-control custom-select" id="kegiatan" name="stase_id" disabled>
                                 <option value="0">Pilih Kegiatan</option>
                                 @foreach($data['stase'] as $option)
-                                <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
+                                    @if($data['portofolio']->stase_id == $option->stase_id)
+                                    <option selected value="{{$option->stase_id}}">{{$option->stase_name}}</option>
+                                    @else
+                                    <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             <i class="clear-input">
@@ -103,7 +112,7 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="description">Deskripsi Kegiatan</label>
-                            <textarea id="description" rows="2" class="form-control" name="description" required name="deskripsi"></textarea>
+                            <textarea id="description" rows="2" class="form-control" name="description" required name="deskripsi" disabled>{{$data['portofolio']->portofolio->description}}</textarea>
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
@@ -111,36 +120,21 @@
                     </div>
                     <div class="form-group boxed">
                         <label class="label" >Foto Kegiatan</label>
-                        <div class="custom-file-upload">
-                            <input type="file" id="fileuploadInput" name="photo" accept="image/*" capture="camera">
-                            <label for="fileuploadInput">
-                                <span>
-                                    <strong>
-                                    <ion-icon name="camera-outline"></ion-icon>
-                                        <i>Open Camera</i>
-                                    </strong>
-                                </span>
-                            </label>
-                        </div>
+                        
+                        <span>
+                            <strong>
+                            <img src="{{asset('assets/img/posting/'.$data['portofolio']->path->path)}}" alt="">
+                            </strong>
+                        </span>
+                            
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">SAVE</button>
+                    <!-- <button type="submit" class="btn btn-primary btn-block">SAVE</button> -->
                 </form>
             </div>
         </div>
     </div>
 </div>
 <!-- * App Capsule -->
-@push('custom-scripts')
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
-    <script>
-        $(document).ready(function() {
-            $('#supervisor').select2();
-            $('#hospital').select2();
-            $('#kegiatan').select2();
-        });
-    </script>
-    <script src="{{asset('assets/js/portofolioform.js')}}"></script>
-@endpush
+
 
 @endsection

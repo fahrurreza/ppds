@@ -36,43 +36,45 @@ class PortofolioController extends Controller
         $portofolio = PortofolioModel::where('trx_id', $trx_id)->first();
 
         if($portofolio->portofolio_id == 1){
-            $detail = TindakanModel::with('portofolio')->where('trx_id', $trx_id)->first();
-            return $detail;
+            
             $data = [
-                'page'          => 'Portofolio List',
-                'portofolio'    => $detail,
+                'supervisor'    => UserModel::where('user_level', 3)->get(),
+                'hospital'      => HospitalModel::all(),
+                'stase'         => StaseModel::all(),
+                'page'          => 'Detail Protofolio Tindakan',
+                'portofolio'    => TindakanModel::with(['portofolio', 'path'])->where('trx_id', $trx_id)->first()
             ];
 
             return view('portofolio.detail_tindakan', compact('data'));
 
         }if($portofolio->portofolio_id == 2){
-            $detail = CasereportModel::with('portofolio')->where('trx_id', $trx_id)->first();
-            return $detail;
             $data = [
-                'page'          => 'Portofolio List',
-                'portofolio'    => $detail,
+                'supervisor'    => UserModel::where('user_level', 3)->get(),
+                'stase'         => StaseModel::all(),
+                'page'          => 'Detail Portofolio Case Report',
+                'portofolio'    => CasereportModel::with(['portofolio', 'path'])->where('trx_id', $trx_id)->first()
             ];
 
             return view('portofolio.detail_case', compact('data'));
 
         }if($portofolio->portofolio_id == 3){
-            $detail = KaryailmiahModel::with('portofolio')->where('trx_id', $trx_id)->first();
-
-            return $detail;
             
             $data = [
-                'page'          => 'Portofolio List',
-                'portofolio'    => $detail,
+                'supervisor'    => UserModel::where('user_level', 3)->get(),
+                'stase'         => StaseModel::all(),
+                'page'          => 'Detail Portofolio Karya Ilmiah',
+                'portofolio'    => $detail = KaryailmiahModel::with(['portofolio', 'path'])->where('trx_id', $trx_id)->first(),
             ];
 
             return view('portofolio.detail_karya', compact('data'));
 
         }else{
-            $detail = ExtrakulikulerModel::with('portofolio')->where('trx_id', $trx_id)->first();
-            return $detail;
+            
             $data = [
-                'page'          => 'Portofolio List',
-                'portofolio'    => $detail,
+                'supervisor'    => UserModel::where('user_level', 3)->get(),
+                'stase'         => StaseModel::all(),
+                'page'          => 'Detail Portofolio Extrakulikuler',
+                'portofolio'    => ExtrakulikulerModel::with('portofolio')->where('trx_id', $trx_id)->first()
             ];
 
             return view('portofolio.detail_extrakulikuler', compact('data'));

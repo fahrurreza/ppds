@@ -15,8 +15,7 @@
                             
                         <div class="form-group boxed">
                             <label class="label" for="city5">Portofolio</label>
-                            <select name="menu" class="form-control"
-                                onChange="top.location.href=this.options[this.selectedIndex].value;" value="GO">
+                            <select name="menu" class="form-control" disabled>
                                 <option value="{{route('tindakan-portofolio')}}">Pelayanan/Tindakan</option>
                                 <option value="{{route('case-portofolio')}}">Case Report</option>
                                 <option selected value="{{route('karya-portofolio')}}">Karya ilmiah</option>
@@ -32,7 +31,7 @@
                                     <i class="chip-icon bg-info">
                                         <ion-icon name="alarm"></ion-icon>
                                     </i>
-                                    <span class="chip-label" id="time"></span>
+                                    <span class="chip-label" id="time">{{$data['portofolio']->portofolio->create_date}}</span>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +39,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="city5">Trx No</label>
-                                <input type="text" class="form-control" id="name5" value="{{$data['trx_id']}}" disabled>
+                                <input type="text" class="form-control" id="name5" value="{{$data['portofolio']->trx_id}}" disabled>
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -51,11 +50,15 @@
 
                         <div class="form-group boxed">
                             <div class="input-wrapper">
-                                <label class="label" for="kegiatan">Stase</label>
-                                <select class="form-control custom-select" id="kegiatan" name="stase_id">
-                                    <option value="0">Pilih Stase</option>
+                                <label class="label" for="kegiatan">Kegiatan</label>
+                                <select class="form-control custom-select" id="kegiatan" name="stase_id" disabled>
+                                    <option value="0">Pilih Kegiatan</option>
                                     @foreach($data['stase'] as $option)
-                                    <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
+                                        @if($data['portofolio']->stase_id == $option->stase_id)
+                                        <option selected value="{{$option->stase_id}}">{{$option->stase_name}}</option>
+                                        @else
+                                        <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 <i class="clear-input">
@@ -69,7 +72,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="jenis_karya_ilmiah">Jenis Karya Ilmiah</label>
-                                <select class="form-control custom-select" id="jenis_karya_ilmiah" name="jenis_karya_ilmiah">
+                                <select class="form-control custom-select" id="jenis_karya_ilmiah" name="jenis_karya_ilmiah" disabled>
                                     <option>Pilih Jenis Karya Ilmiah </option>
                                     <option value="Proposal Penelitian">Proposal Penelitian</option>
                                     <option value="Hasil Tesis">Hasil Tesis</option>
@@ -93,7 +96,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="judul">Judul Karya Ilmiah</label>
-                                <input type="text" class="form-control" id="judul" name="judul">
+                                <input type="text" class="form-control" id="judul" name="judul" value="{{$data['portofolio']->judul}}">
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -105,10 +108,13 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="supervisor">Supervisor</label>
-                                <select class="form-control custom-select" id="supervisor" name="supervisor_id">
-                                    <option>Pilih Supervisor </option>
+                                <select class="form-control custom-select" id="supervisor" name="supervisor_id" disabled>
                                     @foreach($data['supervisor'] as $option)
-                                    <option value="{{$option->id}}">{{$option->user_name}}</option>
+                                        @if($data['portofolio']->supervisor_id == $option->id)
+                                        <option selected value="{{$option->id}}">{{$option->user_name}}</option>
+                                        @else
+                                        <option value="{{$option->id}}">{{$option->user_name}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 <i class="clear-input">
@@ -122,12 +128,12 @@
                         <div class="form-group boxed">
                             <label class="label" >Softcopy</label>
                             <div class="custom-file-upload">
-                                <input type="file" id="fileuploadInput" name="file" accept=".pptx, .pdf">
+                                <input type="file" name="file" accept=".pptx, .pdf">
                                 <label for="fileuploadInput">
                                     <span>
                                         <strong>
-                                            <ion-icon name="cloud-upload-outline"></ion-icon>
-                                            <i>Tap to Upload</i>
+                                            <ion-icon name="document-outline"></ion-icon>
+                                            <i>{{$data['portofolio']->path->path}}</i>
                                         </strong>
                                     </span>
                                 </label>
@@ -143,16 +149,12 @@
                                 </i>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">SAVE</button>
+                        <!-- <button type="submit" class="btn btn-primary btn-block">SAVE</button> -->
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- * App Capsule -->
-    
-    @push('custom-scripts')
-    <script src="{{asset('assets/js/portofolioform.js')}}"></script>
-    @endpush
 
     @endsection
