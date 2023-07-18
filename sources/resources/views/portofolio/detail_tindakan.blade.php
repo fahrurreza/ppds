@@ -121,11 +121,13 @@
                     <div class="form-group boxed">
                         <label class="label" >Foto Kegiatan</label>
                         
+                            <div class="item">
                         <span>
                             <strong>
-                            <img src="{{asset('assets/img/posting/'.$data['portofolio']->path->path)}}" alt="">
+                            <img src="{{asset('assets/img/posting/'.$data['portofolio']->path->path)}}" alt="" class="imaged w-100 square">
                             </strong>
                         </span>
+                            </div>
                             
                     </div>
                     <!-- <button type="submit" class="btn btn-primary btn-block">SAVE</button> -->

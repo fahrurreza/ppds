@@ -21,18 +21,6 @@
                         <option value="{{route('extrakulikuler-portofolio')}}">Extrakurikuler</option>
                     </select>
                 </div>
-                <div class="form-group boxed">
-                    <div class="input-wrapper">
-                        <label class="label" for="address5">Tanggal Kegiatan</label>
-
-                        <div class="chip chip-media">
-                            <i class="chip-icon bg-info">
-                                <ion-icon name="alarm"></ion-icon>
-                            </i>
-                            <span class="chip-label" id="time"></span>
-                        </div>
-                    </div>
-                </div>
             </form>
 
         </div>

@@ -8,6 +8,8 @@ use App\Models\User as UserModel;
 use Toastr;
 use Hash;
 use Auth;
+use Validator;
+use DB;
 
 class AuthController extends Controller
 {
@@ -56,7 +58,43 @@ class AuthController extends Controller
 
     public function registration_store(Request $request)
     {
-        return $request;
+        $validator = Validator::make($request->all(), [
+            'user_name'     => 'required',
+            'phone'         => 'required',
+            'gender'        => 'required',
+            'email'         => 'required | unique:stp_user',
+            'password'      => 'required | min:6',
+            'password2'     => 'required_with:password|same:password|min:6'
+        ]);
+
+        if ($validator->fails()) {
+            Toastr::error('Register Gagal,'. $validator->messages());
+            return \Redirect::back();
+        } else {
+
+            $insert =   DB::table('stp_user')->insert([
+                            'user_name'     => $request->user_name,
+                            'phone'         => $request->phone,
+                            'gender'        => $request->gender,
+                            'email'         => $request->email,
+                            'password'      => Hash::make($request->password),
+                            'user_level'    => 1,
+                            'status'        => 1,
+                            'photo'         => null,
+                            'update_date'   => now(), 
+                            'update_id'     => null,
+                        ]);
+
+            if($insert){
+                Toastr::success('Register berhasil, silahkan login');
+                return \Redirect::back();
+            }else{
+                Toastr::error('Register Gagal');
+                return \Redirect::back();
+            }
+        }
+
+
     }
 
     public function change_password()
