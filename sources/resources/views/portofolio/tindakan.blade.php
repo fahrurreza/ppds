@@ -28,6 +28,18 @@
 
                     <div class="form-group boxed">
                         <div class="input-wrapper">
+                            <label class="label" for="trx_id">Trx No</label>
+                            <input type="text" class="form-control" id="trx_id" disabled>
+                            <i class="clear-input">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </i>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your name.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group boxed">
+                        <div class="input-wrapper">
                             <label class="label" for="address5">Tanggal Kegiatan</label>
 
                             <div class="chip chip-media">
@@ -36,18 +48,6 @@
                                 </i>
                                 <span class="chip-label" id="time"></span>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group boxed">
-                        <div class="input-wrapper">
-                            <label class="label" for="city5">Trx No</label>
-                            <input type="text" class="form-control" id="name5" value="{{$data['trx_id']}}" disabled>
-                            <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
-                            <div class="valid-feedback">Looks good!</div>
-                            <div class="invalid-feedback">Please enter your name.</div>
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="supervisor">Supervisor</label>
-                            <select class="form-control custom-select" id="supervisor" name="supervisor_id">
+                            <select class="form-control custom-select" id="supervisor" name="supervisor_id" required>
                                 <option>Pilih Supervisor </option>
                                 @foreach($data['supervisor'] as $option)
                                 <option value="{{$option->id}}">{{$option->user_name}}</option>
@@ -112,7 +112,7 @@
                     <div class="form-group boxed">
                         <label class="label" >Foto Kegiatan</label>
                         <div class="custom-file-upload">
-                            <input type="file" id="fileuploadInput" name="photo" accept="image/*" capture="camera">
+                            <input type="file" id="fileuploadInput" name="photo" accept="image/*" capture="camera" required>
                             <label for="fileuploadInput">
                                 <span>
                                     <strong>

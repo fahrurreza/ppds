@@ -23,6 +23,18 @@
                                 <option value="{{route('extrakulikuler-portofolio')}}">Extrakurikuler</option>
                             </select>
                         </div>
+
+                        <div class="form-group boxed">
+                            <div class="input-wrapper">
+                                <label class="label" for="trx_id">Trx No</label>
+                                <input type="text" class="form-control" id="trx_id" disabled>
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+                        </div>
                             
                         <div class="form-group boxed">
                             <div class="input-wrapper">
@@ -34,18 +46,6 @@
                                     </i>
                                     <span class="chip-label" id="time"></span>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group boxed">
-                            <div class="input-wrapper">
-                                <label class="label" for="city5">Trx No</label>
-                                <input type="text" class="form-control" id="name5" value="{{$data['trx_id']}}" disabled>
-                                <i class="clear-input">
-                                    <ion-icon name="close-circle"></ion-icon>
-                                </i>
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Please enter your name.</div>
                             </div>
                         </div>
 

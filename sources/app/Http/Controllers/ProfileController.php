@@ -53,18 +53,30 @@ class ProfileController extends Controller
         
 
 
-        
-        $update = UserModel::where('id', Auth::user()->id)
+        if(!$request->password){
+            $update = UserModel::where('id', Auth::user()->id)
                 ->update([
                     'user_name'         => $request->user_name,
                     'phone'             => $request->phone,
                     'email'             => $request->email,
                     'gender'            => $request->gender,
-                    'password'          => Hash::make($request->password),
                     'photo'             => $filename,
                     'update_date'       => now(),
                     'update_id'         => Auth::user()->id,
                 ]);
+        }else{
+            $update = UserModel::where('id', Auth::user()->id)
+                    ->update([
+                        'user_name'         => $request->user_name,
+                        'phone'             => $request->phone,
+                        'email'             => $request->email,
+                        'gender'            => $request->gender,
+                        'password'          => Hash::make($request->password),
+                        'photo'             => $filename,
+                        'update_date'       => now(),
+                        'update_id'         => Auth::user()->id,
+                    ]);
+        }
 
         if ($update) {
             Toastr::success('Profile berhasil diupdate');

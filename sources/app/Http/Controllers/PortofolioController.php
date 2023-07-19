@@ -22,7 +22,7 @@ class PortofolioController extends Controller
 {
     public function index()
     {
-        $postofolio = DB::table('trx_portofolio')->get();
+        $postofolio = DB::table('trx_portofolio')->where('ppds_id', Auth::user()->id)->get();
 
         $data = [
             'page'          => 'Portofolio List',
@@ -180,7 +180,7 @@ class PortofolioController extends Controller
 
                 DB::commit();
 
-                Toastr::success('Tindakan sukses di posting');
+                Toastr::success('Portofolio berhasil disimpan di nomor '. $trx_id);
                 return Redirect('list-portofolio');
         
         } catch (Exception $e) {
@@ -235,7 +235,7 @@ class PortofolioController extends Controller
 
                 DB::commit();
 
-                Toastr::success('Case Report sukses di posting');
+                Toastr::success('Portofolio berhasil disimpan di nomor '. $trx_id);
                 return Redirect('list-portofolio');
         
         } catch (Exception $e) {
@@ -291,7 +291,7 @@ class PortofolioController extends Controller
 
                 DB::commit();
 
-                Toastr::success('Karya Ilmiah sukses di posting');
+                Toastr::success('Portofolio berhasil disimpan di nomor '. $trx_id);
                 return Redirect('list-portofolio');
         
         } catch (Exception $e) {
@@ -346,7 +346,7 @@ class PortofolioController extends Controller
 
                 DB::commit();
 
-                Toastr::success('Karya Ilmiah sukses di posting');
+                Toastr::success('Portofolio berhasil disimpan di nomor '. $trx_id);
                 return Redirect('list-portofolio');
         
         } catch (Exception $e) {
@@ -357,6 +357,69 @@ class PortofolioController extends Controller
 
             
 
+    }
+
+    public function filter_portofolio(Request $request)
+    {
+
+        if ($request->filled('trx_id', 'periode', 'status')) 
+        {
+
+            $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
+                                        ->whereDate('create_date', $request->periode)
+                                        ->where('status', $request->status)
+                                        ->get();
+        }
+        elseif ($request->filled('periode', 'status'))
+        {
+            $portofolio = PortofolioModel::whereDate('create_date', $request->periode)
+                                            ->where('status', $request->status)
+                                            ->get();
+        }
+
+        elseif ($request->filled('trx_id', 'status'))
+        {
+            $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
+                                            ->where('status', $request->status)
+                                            ->get();
+        }
+
+        elseif ($request->filled('trx_id', 'periode'))
+        {
+            $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
+                                            ->whereDate('create_date', $request->periode)
+                                            ->get();
+        }
+
+        elseif ($request->filled('trx_id'))
+        {
+            $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')->get();
+        }
+
+        elseif ($request->filled('periode'))
+        {
+            $portofolio = PortofolioModel::whereDate('create_date', $request->periode)->get();
+        }
+
+        elseif ($request->filled('status'))
+        {
+            $portofolio = PortofolioModel::where('status', $request->status)->get();
+        }
+
+        else
+        {
+            $portofolio = null;
+        }
+
+        $data = [
+            'portofolio'    => $portofolio
+        ];
+
+        return view('portofolio.responsefilter', compact('data'));
+        
+        
+
+        
     }
 
 }

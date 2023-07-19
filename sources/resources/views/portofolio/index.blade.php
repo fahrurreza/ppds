@@ -25,49 +25,51 @@
                 </a>
                 <!-- sub menu -->
                 <ul class="listview simple-listview">
-                    <li>
-                        <div class="form-group boxed">
-                            <div class="input-wrapper">
-                                <label class="label" for="name5">ID Transaction </label>
-                                <input type="text" class="form-control" id="name5" value="" required>
-                                <i class="clear-input">
-                                    <ion-icon name="close-circle"></ion-icon>
-                                </i>
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Please enter your name.</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="form-group boxed">
-                            <div class="input-wrapper">
-                                <label class="label" for="name5">Date </label>
-                                <input type="date" class="form-control" id="name5" value="" required>
-                                <i class="clear-input">
-                                    <ion-icon name="close-circle"></ion-icon>
-                                </i>
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Please enter your name.</div>
-                            </div>
-                        </div>
-                    </li>
+                
                     
-                    <li>
-                        <div class="form-group boxed">
-                            <div class="input-wrapper">
-                            <label class="label" for="name5">Status </label>
-                            <select class="form-control custom-select" id="city4">
-                                <option value="0">Pilih Status</option>
-                                <option value="1">Active</option>
-                                <option value="2">Revision</option>
-                                <option value="3">Verified</option>
-                                <option value="4">Approved</option>
-                                <option value="4">Deleted</option>
-                            </select>
-                            </div>
+                    <div class="form-group boxed">
+                        <div class="input-wrapper">
+                            <label class="label" for="trx_id">ID Transaction </label>
+                            <input type="text" class="form-control" id="trx_id"name="trx_id">
+                            <i class="clear-input">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </i>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your name.</div>
                         </div>
-                    </li>
-                    <li><button type="button" class="btn btn-outline-primary shadowed mr-1 mb-1">Search</button></li>
+                    </div>
+                
+                
+                    <div class="form-group boxed">
+                        <div class="input-wrapper">
+                            <label class="label" for="periode">Date </label>
+                            <input type="date" class="form-control" id="periode" name="periode">
+                            <i class="clear-input">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </i>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your name.</div>
+                        </div>
+                    </div>
+                
+                
+                
+                    <div class="form-group boxed">
+                        <div class="input-wrapper">
+                        <label class="label" for="status">Status </label>
+                        <select class="form-control custom-select" id="status" name="status">
+                            <option value="">Pilih Status</option>
+                            <option value="1">Active</option>
+                            <option value="2">Revision</option>
+                            <option value="3">Verified</option>
+                            <option value="4">Approved</option>
+                            <option value="5">Deleted</option>
+                        </select>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="post" class="btn btn-outline-primary shadowed mr-1 mb-1">Search</button></li>
+                    
                 </ul>
                 <!-- * sub menu -->
             </li>
@@ -84,7 +86,7 @@
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="dataTable">
                         @foreach($data['portofolio'] as $list)
                         <tr>
                             <td>
@@ -153,6 +155,26 @@
             // Sembunyikan toast saat tombol close diklik
             toast.style.display = "none";
         });
+    });
+
+    var postButton = document.getElementById("post");
+    postButton.addEventListener("click", function() {
+        var trx_id = document.getElementById("trx_id").value;
+        var periode = document.getElementById("periode").value;
+        var status = $('#status').find(":selected").val();
+        console.log(status)
+
+        $.ajax({
+            type : 'post',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url : '{{URL::to('filter-portofolio')}}',
+            data:{'trx_id':trx_id, 'periode' : periode, 'status' : status},
+          success:function(response){
+            console.log(response)
+            document.getElementById("dataTable").innerHTML = response;
+          }
+        });
+
     });
 </script>
 

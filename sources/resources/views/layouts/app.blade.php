@@ -60,6 +60,7 @@
     <script src="{{asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js')}}"></script>
     <!-- Base Js File -->
     <script src="{{asset('assets/js/base.js')}}"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
     <script>

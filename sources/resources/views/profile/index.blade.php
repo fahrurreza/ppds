@@ -94,7 +94,7 @@
                 <div class="form-group boxed">
                     <div class="input-wrapper">
                         <input type="password" class="form-control" id="password1" placeholder="PASSWORD"
-                            name="password" required>
+                            name="password">
                         <i class="clear-input">
                             <ion-icon name="close-circle"></ion-icon>
                         </i>
