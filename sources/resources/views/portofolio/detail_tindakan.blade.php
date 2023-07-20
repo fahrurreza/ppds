@@ -13,8 +13,6 @@
     <div class="section full mt-2 mb-2">
         <div class="section-title">Masukkan Data dengan Benar dan Teliti.</div>
             <div class="wide-block pb-1 pt-2">
-                <form class="needs-validation" method="POST" action="{{route('post-tindakan')}}" enctype="multipart/form-data">
-                    @csrf
                     <div class="form-group boxed">
                         <label class="label" for="city5">Portofolio</label>
                         <select name="menu" class="form-control" disabled>
@@ -130,8 +128,13 @@
                             </div>
                             
                     </div>
-                    <!-- <button type="submit" class="btn btn-primary btn-block">SAVE</button> -->
-                </form>
+                    @if($data['portofolio']->portofolio->status == 1)
+                    <form action="{{route('delete-portofolio')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="portofolio_id" value="{{$data['portofolio']->portofolio->id}}">
+                        <button type="submit" class="btn btn-danger btn-block">Delete</button>
+                    </form>
+                    @endif
             </div>
         </div>
     </div>

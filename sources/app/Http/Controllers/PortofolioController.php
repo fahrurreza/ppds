@@ -22,7 +22,10 @@ class PortofolioController extends Controller
 {
     public function index()
     {
-        $postofolio = DB::table('trx_portofolio')->where('ppds_id', Auth::user()->id)->get();
+        $postofolio =    DB::table('trx_portofolio')
+                        ->where('ppds_id', Auth::user()->id)
+                        ->where('status', '!=', 5)
+                        ->get();
 
         $data = [
             'page'          => 'Portofolio List',
@@ -34,6 +37,7 @@ class PortofolioController extends Controller
     public function detail($trx_id)
     {
         $portofolio = PortofolioModel::where('trx_id', $trx_id)->first();
+        
 
         if($portofolio->portofolio_id == 1){
             
@@ -367,13 +371,17 @@ class PortofolioController extends Controller
 
             $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
                                         ->whereDate('create_date', $request->periode)
-                                        ->where('status', $request->status)->where('ppds_id', $request->ppds_id)
+                                        ->where('status', $request->status)
+                                        ->where('ppds_id', $request->ppds_id)
+                                        ->where('status', '!=', 5)
                                         ->get();
         }
         elseif ($request->filled('periode', 'status'))
         {
             $portofolio = PortofolioModel::whereDate('create_date', $request->periode)
-                                            ->where('status', $request->status)->where('ppds_id', $request->ppds_id)
+                                            ->where('status', $request->status)
+                                            ->where('ppds_id', $request->ppds_id)
+                                            ->where('status', '!=', 5)
                                             ->get();
         }
 
@@ -381,6 +389,7 @@ class PortofolioController extends Controller
         {
             $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
                                             ->where('status', $request->status)
+                                            ->where('status', '!=', 5)
                                             ->where('ppds_id', $request->ppds_id)->get();
         }
 
@@ -388,25 +397,33 @@ class PortofolioController extends Controller
         {
             $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
                                             ->whereDate('create_date', $request->periode)
-                                            ->where('ppds_id', $request->ppds_id)->get();
+                                            ->where('ppds_id', $request->ppds_id)
+                                            ->where('status', '!=', 5)
+                                            ->get();
         }
 
         elseif ($request->filled('trx_id'))
         {
             $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
-            ->where('ppds_id', $request->ppds_id)->get();
+                                            ->where('ppds_id', $request->ppds_id)
+                                            ->where('status', '!=', 5)
+                                            ->get();
         }
 
         elseif ($request->filled('periode'))
         {
-            $portofolio = PortofolioModel::whereDate('create_date', $request->periode)->where('ppds_id', $request->ppds_id)
-->where('ppds_id', $request->ppds_id)
-            ->get();
+            $portofolio = PortofolioModel::whereDate('create_date', $request->periode)
+                                            ->where('ppds_id', $request->ppds_id)
+                                            ->where('status', '!=', 5)
+                                            ->get();
         }
 
         elseif ($request->filled('status'))
         {
-            $portofolio = PortofolioModel::where('status', $request->status)->where('ppds_id', $request->ppds_id)->get();
+            $portofolio = PortofolioModel::where('status', $request->status)
+                                            ->where('ppds_id', $request->ppds_id)
+                                            ->where('status', '!=', 5)
+                                            ->get();
         }
 
         else
@@ -420,9 +437,22 @@ class PortofolioController extends Controller
 
         return view('portofolio.responsefilter', compact('data'));
         
-        
+    }
 
-        
+    public function delete_portofolio(Request $request)
+    {
+        $update = PortofolioModel::where('id', $request->portofolio_id)->update(['status' => 4]);
+
+        if($update)
+        {
+            Toastr::success('Portofolio berhasil dihapus');
+            return Redirect('list-portofolio');
+        }
+        else
+        {
+            Toastr::error('Portofolio gagal dihapus');
+            return Redirect('list-portofolio');
+        }
     }
 
 }
