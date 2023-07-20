@@ -67,6 +67,8 @@
                         </select>
                         </div>
                     </div>
+
+                    <input type="hidden" id="ppds_id" value="{{Auth::user()->id}}">
                     
                     <button type="button" id="post" class="btn btn-outline-primary shadowed mr-1 mb-1">Search</button></li>
                     
@@ -162,13 +164,13 @@
         var trx_id = document.getElementById("trx_id").value;
         var periode = document.getElementById("periode").value;
         var status = $('#status').find(":selected").val();
-        console.log(status)
+        let ppds_id = document.getElementById("ppds_id").value;
 
         $.ajax({
             type : 'post',
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             url : '{{URL::to('filter-portofolio')}}',
-            data:{'trx_id':trx_id, 'periode' : periode, 'status' : status},
+            data:{'trx_id':trx_id, 'periode' : periode, 'status' : status, 'ppds_id' : ppds_id},
           success:function(response){
             console.log(response)
             document.getElementById("dataTable").innerHTML = response;

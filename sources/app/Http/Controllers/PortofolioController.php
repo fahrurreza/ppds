@@ -367,13 +367,13 @@ class PortofolioController extends Controller
 
             $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
                                         ->whereDate('create_date', $request->periode)
-                                        ->where('status', $request->status)
+                                        ->where('status', $request->status)->where('ppds_id', $request->ppds_id)
                                         ->get();
         }
         elseif ($request->filled('periode', 'status'))
         {
             $portofolio = PortofolioModel::whereDate('create_date', $request->periode)
-                                            ->where('status', $request->status)
+                                            ->where('status', $request->status)->where('ppds_id', $request->ppds_id)
                                             ->get();
         }
 
@@ -381,29 +381,32 @@ class PortofolioController extends Controller
         {
             $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
                                             ->where('status', $request->status)
-                                            ->get();
+                                            ->where('ppds_id', $request->ppds_id)->get();
         }
 
         elseif ($request->filled('trx_id', 'periode'))
         {
             $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
                                             ->whereDate('create_date', $request->periode)
-                                            ->get();
+                                            ->where('ppds_id', $request->ppds_id)->get();
         }
 
         elseif ($request->filled('trx_id'))
         {
-            $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')->get();
+            $portofolio = PortofolioModel::where('trx_id', 'LIKE', '%' .$request->trx_id. '%')
+            ->where('ppds_id', $request->ppds_id)->get();
         }
 
         elseif ($request->filled('periode'))
         {
-            $portofolio = PortofolioModel::whereDate('create_date', $request->periode)->get();
+            $portofolio = PortofolioModel::whereDate('create_date', $request->periode)->where('ppds_id', $request->ppds_id)
+->where('ppds_id', $request->ppds_id)
+            ->get();
         }
 
         elseif ($request->filled('status'))
         {
-            $portofolio = PortofolioModel::where('status', $request->status)->get();
+            $portofolio = PortofolioModel::where('status', $request->status)->where('ppds_id', $request->ppds_id)->get();
         }
 
         else

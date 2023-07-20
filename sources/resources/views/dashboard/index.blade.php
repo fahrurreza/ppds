@@ -69,7 +69,7 @@
 
             <div class="item">
                 <div class="card">
-                    <img src="assets/img/sample/photo/d1.jpg" class="card-img-top" alt="image">
+                    <img src="{{asset('assets/img/sample/photo/d1.jpg')}}" class="card-img-top" alt="image">
                     <div class="card-body pt-2">
                         <h4 class="mb-0"> Prof. Dr. Tamsil Syafiudin, Sp.P(K)</h4>
                     </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="item">
                 <div class="card">
-                    <img src="assets/img/sample/photo/d2.jpg" class="card-img-top" alt="image">
+                    <img src="{{asset('assets/img/sample/photo/d2.jpg')}}" class="card-img-top" alt="image">
                     <div class="card-body pt-2">
                         <h4 class="mb-0"> Dr. Zainuddin Amir, Sp.P(K)</h4>
                     </div>
@@ -85,7 +85,7 @@
             </div>
             <div class="item">
                 <div class="card">
-                    <img src="assets/img/sample/photo/d3.jpg" class="card-img-top" alt="image">
+                    <img src="{{asset('assets/img/sample/photo/d3.jpg')}}" class="card-img-top" alt="image">
                     <div class="card-body pt-2">
                         <h4 class="mb-0">Dr. Widirahardjo, Sp.P(K)</h4>
                     </div>
@@ -93,7 +93,7 @@
             </div>
             <div class="item">
                 <div class="card">
-                    <img src="assets/img/sample/photo/d4.jpg" class="card-img-top" alt="image">
+                    <img src="{{asset('assets/img/sample/photo/d4.jpg')}}" class="card-img-top" alt="image">
                     <div class="card-body pt-2">
                         <h4 class="mb-0"> Dr. Pandiaman Pandia, M.Ked(Paru), Sp.P(K)</h4>
                     </div>
@@ -101,7 +101,7 @@
             </div>
             <div class="item">
                 <div class="card">
-                    <img src="assets/img/sample/photo/d6.jpg" class="card-img-top" alt="image">
+                    <img src="{{asset('assets/img/sample/photo/d6.jpg')}}" class="card-img-top" alt="image">
                     <div class="card-body pt-2">
                         <h4 class="mb-0">dr. Setia Putra Tarigan, Sp.P</h4>
                     </div>
@@ -109,7 +109,7 @@
             </div>
             <div class="item">
                 <div class="card">
-                    <img src="assets/img/sample/photo/d5.jpg" class="card-img-top" alt="image">
+                    <img src="{{asset('assets/img/sample/photo/d5.jpg')}}" class="card-img-top" alt="image">
                     <div class="card-body pt-2">
                         <h4 class="mb-0">Dr. Syamsul Bihar, M.Ked(Paru), Sp.P</h4>
                     </div>
@@ -124,7 +124,7 @@
 
     <div class="section mt-3 mb-3">
         <div class="card">
-            <img src="assets/img/sample/photo/wide4.jpg" class="card-img-top" alt="image">
+            <img src="{{asset('assets/img/sample/photo/wide4.jpg')}}" class="card-img-top" alt="image">
             <div class="card-body">
                 <h5 class="card-title">Support Admin</h5>
                 <p class="card-text">
@@ -147,7 +147,7 @@
     <div class="notification-dialog android-style">
         <div class="notification-header">
             <div class="in">
-                <img src="assets/img/icon/72x72.png" alt="image" class="imaged w24">
+                <img src="{{asset('assets/img/icon/72x72.png')}}" alt="image" class="imaged w24">
                 <strong>PPDS LOGBOOK</strong>
                 <span>just now</span>
             </div>
