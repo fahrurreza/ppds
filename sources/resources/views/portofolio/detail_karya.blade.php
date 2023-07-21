@@ -140,13 +140,14 @@
 
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <label class="label" for="address5">Deskripsi Kegiatan</label>
-                            <textarea id="address5" rows="2" class="form-control"></textarea>
+                            <label class="label" for="description">Deskripsi Kegiatan</label>
+                            <textarea id="description" rows="2" class="form-control" name="description" required name="deskripsi" disabled>{{$data['portofolio']->description}}</textarea>
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
                         </div>
                     </div>
+                    
                     @if($data['portofolio']->portofolio->status == 1)
                     <form action="{{route('delete-portofolio')}}" method="post">
                         @csrf

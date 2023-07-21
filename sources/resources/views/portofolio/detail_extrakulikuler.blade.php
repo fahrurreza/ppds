@@ -92,7 +92,7 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="description">Deskripsi Kegiatan</label>
-                            <textarea id="description" rows="2" class="form-control" name="description" required name="deskripsi" disabled>{{$data['portofolio']->portofolio->description}}</textarea>
+                            <textarea id="description" rows="2" class="form-control" name="description" required name="deskripsi" disabled>{{$data['portofolio']->description}}</textarea>
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>

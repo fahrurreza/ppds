@@ -13,6 +13,9 @@ use App\Http\Livewire\Livewire;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/error', function () {
+    return view('error.index');
+})->name('error');
 
 Route::middleware('guest')->group(function() {
     Route::get('/login', 'AuthController@index')->name('login');

@@ -50,6 +50,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // Customize your error handling logic here
+        if ($exception instanceof \Exception) {
+            return redirect()->route('error'); // Redirect to a custom error page
+        }
         return parent::render($request, $exception);
     }
 }
