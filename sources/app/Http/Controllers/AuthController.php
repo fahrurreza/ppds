@@ -25,7 +25,8 @@ class AuthController extends Controller
             'password'  => ['required']
         ]);
 
-        $user = UserModel::where('email', $request->email)->where('status', 1)                 ->where('user_level', '1')
+        $user = UserModel::where('email', $request->email)->where('status', 1)                 
+                            ->where('user_level', '1')
                             ->first();
 
         if($user)

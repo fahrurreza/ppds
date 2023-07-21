@@ -3,6 +3,10 @@
 
 @section('content')
 
+@push('custom-style')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
     <!-- App Capsule -->
     <div id="appCapsule">
 
@@ -152,7 +156,16 @@
     <!-- * App Capsule -->
     
     @push('custom-scripts')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
     <script src="{{asset('assets/js/portofolioform.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#supervisor').select2();
+            $('#jenis_karya_ilmiah').select2();
+            $('#kegiatan').select2();
+        });
+    </script>
     @endpush
 
     @endsection

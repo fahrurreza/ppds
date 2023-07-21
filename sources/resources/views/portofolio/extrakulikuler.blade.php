@@ -124,12 +124,13 @@
     @push('custom-scripts')
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+    <script src="{{asset('assets/js/portofolioform.js')}}"></script>
     <script>
         $(document).ready(function() {
-            $('#js-example-basic-single').select2();
+            $('#supervisor').select2();
+            $('#kegiatan').select2();
         });
     </script>
-    <script src="{{asset('assets/js/portofolioform.js')}}"></script>
     @endpush
 
     @endsection
