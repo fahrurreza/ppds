@@ -3,6 +3,10 @@
 
 @section('content')
 
+@push('custom-style')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
     <!-- App Capsule -->
     <div id="appCapsule">
 
@@ -45,120 +49,145 @@
                             <div class="invalid-feedback">Please enter your name.</div>
                         </div>
                     </div>
-
-                    <div class="form-group boxed">
-                        <div class="input-wrapper">
-                            <label class="label" for="kegiatan">Kegiatan</label>
-                            <select class="form-control custom-select" id="kegiatan" name="stase_id" disabled>
-                                <option value="0">Pilih Kegiatan</option>
-                                @foreach($data['stase'] as $option)
-                                    @if($data['portofolio']->stase_id == $option->stase_id)
-                                    <option selected value="{{$option->stase_id}}">{{$option->stase_name}}</option>
-                                    @else
-                                    <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
-                            <div class="valid-feedback">Looks good!</div>
-                            <div class="invalid-feedback">Please enter your name.</div>
+                    <form id="update" action="{{route('update-portofolio')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="trx_id" value="{{$data['portofolio']->trx_id}}">
+                        <input type="hidden" name="portofolio_id" value="{{$data['portofolio']->portofolio->id}}">
+                        <div class="form-group boxed">
+                            <div class="input-wrapper">
+                                <label class="label" for="kegiatan">Kegiatan</label>
+                                <select class="form-control custom-select" id="kegiatan" name="stase_id">
+                                    @foreach($data['stase'] as $option)
+                                        @if($data['portofolio']->portofolio->stase_id == $option->stase_id)
+                                        <option selected value="{{$option->stase_id}}">{{$option->stase_name}}</option>
+                                        @else
+                                        <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group boxed">
-                        <div class="input-wrapper">
-                            <label class="label" for="jenis_karya_ilmiah">Jenis Karya Ilmiah</label>
-                            <select class="form-control custom-select" id="jenis_karya_ilmiah" name="jenis_karya_ilmiah" disabled>
-                                <option>Pilih Jenis Karya Ilmiah </option>
-                                <option value="Proposal Penelitian">Proposal Penelitian</option>
-                                <option value="Hasil Tesis">Hasil Tesis</option>
-                                <option value="Case Report">Case Report</option>
-                                <option value="Journal Reading">Journal Reading</option>
-                                <option value="Text Book Reading">Text Book Reading</option>
-                                <option value="Case Of Death">Case Of Death</option>
-                                <option value="Multidisciplinary Team">Multidisciplinary Team</option>
-                                <option value="Tugas Nasional">Tugas Nasional</option>
-                                <option value="Tugas Internasional">Tugas Internasional</option>
-                                <option value="Publikasi Penelitian">Publikasi Penelitian</option>
-                            </select>
-                            <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
-                            <div class="valid-feedback">Looks good!</div>
-                            <div class="invalid-feedback">Please enter your name.</div>
+                        <div class="form-group boxed">
+                            <div class="input-wrapper">
+                                <label class="label" for="jenis_karya_ilmiah">Jenis Karya Ilmiah</label>
+                                <select class="form-control custom-select" id="jenis_karya_ilmiah" name="jenis_karya_ilmiah">
+                                    <option>{{$data['portofolio']->jenis_karya}}</option>
+                                    @foreach($data['jenis_karya'] as $option)
+                                        @if($option != $data['portofolio']->jenis_karya)
+                                        <option value="{{$option}}">{{$option}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group boxed">
-                        <div class="input-wrapper">
-                            <label class="label" for="judul">Judul Karya Ilmiah</label>
-                            <input type="text" class="form-control" id="judul" name="judul" value="{{$data['portofolio']->judul}}">
-                            <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
-                            <div class="valid-feedback">Looks good!</div>
-                            <div class="invalid-feedback">Please enter your name.</div>
+                        <div class="form-group boxed">
+                            <div class="input-wrapper">
+                                <label class="label" for="judul">Judul Karya Ilmiah</label>
+                                <input type="text" class="form-control" id="judul" name="judul" value="{{$data['portofolio']->judul}}">
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group boxed">
-                        <div class="input-wrapper">
-                            <label class="label" for="supervisor">Supervisor</label>
-                            <select class="form-control custom-select" id="supervisor" name="supervisor_id" disabled>
-                                @foreach($data['supervisor'] as $option)
-                                    @if($data['portofolio']->supervisor_id == $option->id)
-                                    <option selected value="{{$option->id}}">{{$option->user_name}}</option>
-                                    @else
-                                    <option value="{{$option->id}}">{{$option->user_name}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
-                            <div class="valid-feedback">Looks good!</div>
-                            <div class="invalid-feedback">Please enter your name.</div>
+                        <div class="form-group boxed">
+                            <div class="input-wrapper">
+                                <label class="label" for="supervisor">Supervisor</label>
+                                <select class="form-control custom-select" id="supervisor" name="supervisor_id">
+                                    @foreach($data['supervisor'] as $option)
+                                        @if($data['portofolio']->portofolio->supervisor_id == $option->id)
+                                        <option selected value="{{$option->id}}">{{$option->user_name}}</option>
+                                        @else
+                                        <option value="{{$option->id}}">{{$option->user_name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group boxed">
-                        <label class="label" >Softcopy</label>
-                        <div class="custom-file-upload">
-                            <input type="file" name="file" accept=".pptx, .pdf">
-                            <label for="fileuploadInput">
-                                <span>
-                                    <strong>
-                                        <ion-icon name="document-outline"></ion-icon>
-                                        <i>{{$data['portofolio']->path->path}}</i>
-                                    </strong>
-                                </span>
-                            </label>
+                        <div class="form-group boxed">
+                            <label class="label" >Softcopy</label>
+                            <div class="custom-file-upload">
+                                <input type="file" id="fileuploadInput" name="file" accept=".pptx, .pdf">
+                                <label for="fileuploadInput">
+                                    <span>
+                                        <strong>
+                                            <ion-icon name="document-outline"></ion-icon>
+                                            <i>{{$data['portofolio']->path->path}}</i>
+                                        </strong>
+                                    </span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group boxed">
-                        <div class="input-wrapper">
-                            <label class="label" for="description">Deskripsi Kegiatan</label>
-                            <textarea id="description" rows="2" class="form-control" name="description" required name="deskripsi" disabled>{{$data['portofolio']->description}}</textarea>
-                            <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
+                        <div class="form-group boxed">
+                            <div class="input-wrapper">
+                                <label class="label" for="description">Deskripsi Kegiatan</label>
+                                <textarea id="description" rows="2" class="form-control" name="description">{{$data['portofolio']->description}}</textarea>
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     
                     @if($data['portofolio']->portofolio->status == 1)
-                    <form action="{{route('delete-portofolio')}}" method="post">
-                        @csrf
-                        <input type="hidden" name="portofolio_id" value="{{$data['portofolio']->portofolio->id}}">
-                        <button type="submit" class="btn btn-danger btn-block">Delete</button>
-                    </form>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-primary btn-block" id="save">Save</button>
+                        </div>
+                        <div class="col-6">
+                            <form action="{{route('delete-portofolio')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="portofolio_id" value="{{$data['portofolio']->portofolio->id}}">
+                                <button type="submit" class="btn btn-danger btn-block">Delete</button>
+                            </form>
+                        </div>
+                    </div>
                     @endif
                 </div>
             </div>
         </div>
     </div>
     <!-- * App Capsule -->
+
+    @push('custom-scripts')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+    <script src="{{asset('assets/js/portofolioform.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#supervisor').select2();
+            $('#jenis_karya_ilmiah').select2();
+            $('#kegiatan').select2();
+        });
+    </script>
+    <script>
+        var form = document.getElementById("update");
+
+        document.getElementById("save").addEventListener("click", function () {
+            form.submit();
+        });
+    </script>
+    @endpush
 
     @endsection

@@ -16,15 +16,25 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        // return Auth::user()->email;
-        $profile = UserModel::where('id', Auth::user()->id)->first();
+        try {
+            // return Auth::user()->email;
+            $profile = UserModel::where('id', Auth::user()->id)->first();
 
-        $data = [
-            'page'      => 'Profile',
-            'profile'   => $profile
-        ];
+            $data = [
+                'page'      => 'Profile',
+                'profile'   => $profile
+            ];
+            
+            return view('profile.index', compact('data'));
+        } catch (\Exception $e) {
+            // Log the error (optional)
+            // You can log the error for debugging purposes if needed:
+            // \Log::error($e);
+    
+            // Redirect to the custom error page
+            return view('error');
+        }
         
-        return view('profile.index', compact('data'));
     }
 
     public function update(Request $request)
@@ -39,6 +49,8 @@ class ProfileController extends Controller
 
             $filename = $foto_lama;
 
+        }elseif($foto_lama == null){
+            $filename = null;
         }else{
             if($foto_lama){
                 $file_path = 'assets/img/profile/'.$foto_lama;

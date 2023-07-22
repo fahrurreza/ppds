@@ -63,11 +63,23 @@ class PortofolioController extends Controller
 
         }if($portofolio->portofolio_id == 3){
             
+            $jenis_karya_ilmiah = array("Proposal Penelitian",
+                                        "Hasil Tesis","Case Report",
+                                        "Journal Reading",
+                                        "Text Book Reading",
+                                        "Case Of Death",
+                                        "Multidisciplinary Team",
+                                        "Tugas Nasional",
+                                        "Tugas Internasional",
+                                        "Publikasi Penelitian"
+                                    );
+
             $data = [
                 'supervisor'    => UserModel::where('user_level', 3)->get(),
                 'stase'         => StaseModel::all(),
                 'page'          => 'Detail Portofolio Karya Ilmiah',
-                'portofolio'    => $detail = KaryailmiahModel::with(['portofolio', 'path'])->where('trx_id', $trx_id)->first(),
+                'portofolio'    => KaryailmiahModel::with(['portofolio', 'path'])->where('trx_id', $trx_id)->first(),
+                'jenis_karya'   => $jenis_karya_ilmiah
             ];
 
             return view('portofolio.detail_karya', compact('data'));
@@ -452,6 +464,76 @@ class PortofolioController extends Controller
         {
             Toastr::error('Portofolio gagal dihapus');
             return Redirect('list-portofolio');
+        }
+    }
+
+    public function update_portofolio(Request $request)
+    {
+        if($request->portofolio_id == 1)
+        {
+
+        }elseif($request->portofolio_id == 2)
+        {
+            
+        }elseif($request->portofolio_id == 3)
+        {
+            DB::beginTransaction();
+        
+            try {
+
+                    $insert_portofolio      =   DB::table('trx_portofolio')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'stase_id'          => $request->stase_id,
+                                                    'supervisor_id'     => $request->supervisor_id,
+                                                    'update_date'       => now(),
+                                                    'update_id'         => Auth::user()->id
+                                                ]);
+
+                    
+                    $insert_case_report     =   DB::table('trx_karya_ilmiah')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'jenis_karya'       => $request->jenis_karya_ilmiah,
+                                                    'judul'             => $request->judul,
+                                                    'description'       => $request->description
+                                                ]);
+
+                    // PROSES FILE UPLOAD
+                    if($request->file != null)
+                    {
+                        //delete file yang lama
+                        $get_data = KaryailmiahModel::with(['portofolio', 'path'])->where('trx_id', $request->trx_id)->first();
+                        $file = $get_data->path->path;
+                        $filePath = 'assets/img/posting/'.$file;
+                        unlink($filePath);
+                        //ending delete
+
+                        $random = Str::random(8);
+                        $file = $request->file('file');
+                        $filename = $random.'.'.$file->getClientOriginalExtension();
+                        
+                        $tujuan_upload = 'assets/img/posting';
+                        $file->move($tujuan_upload, $filename);
+
+                        $insert_path            =   DB::table('path_portofolio')
+                                                    ->where('trx_id', $request->trx_id)
+                                                    ->update(['path' => $filename]);
+                    }
+
+                    DB::commit();
+
+                    Toastr::success('Portofolio berhasil diupdate');
+                    return Redirect('list-portofolio');
+            
+            } catch (Exception $e) {
+                DB::rollback();
+                Toastr::error('Karya Ilmiah gagal di posting, silahkan coba lagi');
+                return \Redirect::back();
+            }
+        }else
+        {
+
         }
     }
 

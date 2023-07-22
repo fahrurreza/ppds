@@ -27,6 +27,8 @@
                 <ul class="listview simple-listview">
                 
                     
+        <div class="section mb-2 mt-2 full">
+            <div class="wide-block pt-2 pb-2">
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="trx_id">ID Transaction </label>
@@ -68,10 +70,13 @@
                         </div>
                     </div>
 
+                    
                     <input type="hidden" id="ppds_id" value="{{Auth::user()->id}}">
                     
                     <button type="button" id="post" class="btn btn-outline-primary shadowed mr-1 mb-1">Search</button></li>
                     
+                    </div>
+                    </div>
                 </ul>
                 <!-- * sub menu -->
             </li>

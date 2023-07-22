@@ -41,7 +41,10 @@
 <div id="appCapsule">
 
     <div class="error-page">
-        <img src="{{asset('assets/img/error.jpg')}}" alt="alt" class="imaged square w200">
+        <img src="{{asset('assets/img/500.jpg')}}" alt="alt" class="imaged square w200">
+        <div class="text" style="font-size:5px">
+            vecteezy.com
+        </div>
         <h1 class="title">Ups, somethink wrong!</h1>
         <div class="text mb-5">
             Please contact your admin

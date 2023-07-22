@@ -129,11 +129,19 @@
                             
                     </div>
                     @if($data['portofolio']->portofolio->status == 1)
-                    <form action="{{route('delete-portofolio')}}" method="post">
-                        @csrf
-                        <input type="hidden" name="portofolio_id" value="{{$data['portofolio']->portofolio->id}}">
-                        <button type="submit" class="btn btn-danger btn-block">Delete</button>
-                    </form>
+                    
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="update" class="btn btn-primary btn-block">Save</button>
+                            </div>
+                            <div class="col-6">
+                                <form action="{{route('delete-portofolio')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="portofolio_id" value="{{$data['portofolio']->portofolio->id}}">
+                                    <button type="submit" class="btn btn-danger btn-block">Delete</button>
+                                </form>
+                            </div>
+                        </div>
                     @endif
             </div>
         </div>

@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/post_extrakulikuler', 'PortofolioController@post_extrakulikuler')->name('post-extrakulikuler');
     Route::post('/filter-portofolio', 'PortofolioController@filter_portofolio')->name('filter-portofolio');
     Route::post('/delete-portofolio', 'PortofolioController@delete_portofolio')->name('delete-portofolio');
+    Route::post('/update-portofolio', 'PortofolioController@update_portofolio')->name('update-portofolio');
 
     //PROFILE
     Route::post('/update', 'ProfileController@update')->name('update-profile');
