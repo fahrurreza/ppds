@@ -39,31 +39,24 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $data_user = UserModel::where('id', Auth::user()->id)->first();
-        
-        $foto_lama = $data_user->photo;
-        
-        $file = $request->file('photo');
 
-        if($foto_lama and $file == ''){
-
-            $filename = $foto_lama;
-
-        }elseif($foto_lama == null){
-            $filename = null;
-        }else{
-            if($foto_lama){
-                $file_path = 'assets/img/profile/'.$foto_lama;
-                unlink($file_path);
-            }
-
+        if($request->file('photo'))
+        {
+            $file = $request->file('photo');
             $random = Str::random(8);
             $filename = $random.'.'.$file->getClientOriginalExtension();
             $tujuan_upload = 'assets/img/profile';
             $file->move($tujuan_upload, $filename);
         }
+        else
+        {
+            $data_user = UserModel::where('id', Auth::user()->id)->first();
         
+            $filename= $data_user->photo;
+        }
 
+        
+    
 
         if(!$request->password){
             $update = UserModel::where('id', Auth::user()->id)

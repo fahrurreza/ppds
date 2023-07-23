@@ -201,7 +201,7 @@ class PortofolioController extends Controller
         
         } catch (Exception $e) {
             DB::rollback();
-            Toastr::error('Tindakan gagal di posting, silahkan coba lagi');
+            Toastr::error('Portofolio di posting, silahkan coba lagi');
             return \Redirect::back();
         }
 
@@ -256,7 +256,7 @@ class PortofolioController extends Controller
         
         } catch (Exception $e) {
             DB::rollback();
-            Toastr::error('Case Report gagal di posting, silahkan coba lagi');
+            Toastr::error('Portofolio di posting, silahkan coba lagi');
             return \Redirect::back();
         }
 
@@ -312,7 +312,7 @@ class PortofolioController extends Controller
         
         } catch (Exception $e) {
             DB::rollback();
-            Toastr::error('Karya Ilmiah gagal di posting, silahkan coba lagi');
+            Toastr::error('Portofolio gagal di posting, silahkan coba lagi');
             return \Redirect::back();
         }
 
@@ -367,7 +367,7 @@ class PortofolioController extends Controller
         
         } catch (Exception $e) {
             DB::rollback();
-            Toastr::error('Karya Ilmiah gagal di posting, silahkan coba lagi');
+            Toastr::error('Portofolio gagal di posting, silahkan coba lagi');
             return \Redirect::back();
         }
 
@@ -453,7 +453,7 @@ class PortofolioController extends Controller
 
     public function delete_portofolio(Request $request)
     {
-        $update = PortofolioModel::where('id', $request->portofolio_id)->update(['status' => 4]);
+        $update = PortofolioModel::where('id', $request->portofolio_id)->update(['status' => 5]);
 
         if($update)
         {
@@ -471,10 +471,129 @@ class PortofolioController extends Controller
     {
         if($request->portofolio_id == 1)
         {
+            DB::beginTransaction();
+
+            try {
+                    $insert_portofolio  =   DB::table('trx_portofolio')
+                                            ->where('trx_id', $request->trx_id)
+                                            ->update([
+                                                'stase_id'          => $request->stase_id,
+                                                'supervisor_id'     => $request->supervisor_id,
+                                                'ppds_id'           => Auth::user()->id,
+                                                'update_date'       => now(),
+                                                'update_id'         => Auth::user()->id
+                                            ]);
+
+                    
+                    $insert_tindakan    =   DB::table('trx_tindakan')
+                                            ->where('trx_id', $request->trx_id)
+                                            ->update([
+                                                'stase_id'          => $request->stase_id,
+                                                'hospital_id'       => $request->hospital_id,
+                                                'description'       => $request->description
+                                            ]);
+
+
+                    if($request->file('photo'))
+                    {
+                        
+                         //delete file yang lama
+                         $get_data = TindakanModel::with(['portofolio', 'path'])->where('trx_id', $request->trx_id)->first();
+                         $file = $get_data->path->path;
+                         $filePath = 'assets/img/posting/'.$file;
+                         unlink($filePath);
+                         //ending delete
+
+                        // PROSES FILE UPLOAD
+
+                        $random = Str::random(8);
+                        $file = $request->file('photo');
+                        $filename = $random.'.'.$file->getClientOriginalExtension();
+                        
+                        $tujuan_upload = 'assets/img/posting';
+                        $file->move($tujuan_upload, $filename);
+
+                        $insert_path        =   DB::table('path_portofolio')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'path'              => $filename
+                                                ]);
+                    }
+
+                    DB::commit();
+
+                    Toastr::success('Portofolio berhasil diupdate');
+                    return Redirect('list-portofolio');
+            
+            } catch (Exception $e) {
+                DB::rollback();
+                Toastr::error('Portofolio gagal di posting, silahkan coba lagi');
+                return \Redirect::back();
+            }
 
         }elseif($request->portofolio_id == 2)
         {
             
+            DB::beginTransaction();
+        
+            try {
+
+                    $insert_portofolio      =   DB::table('trx_portofolio')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'stase_id'          => $request->stase_id,
+                                                    'supervisor_id'     => $request->supervisor_id,
+                                                    'ppds_id'           => Auth::user()->id,
+                                                    'update_date'       => now(),
+                                                    'update_id'         => Auth::user()->id
+                                                ]);
+
+                    
+                    $insert_case_report     =   DB::table('trx_case_report')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'presenter'         => $request->presenter,
+                                                    'description'       => $request->description
+                                                ]);
+
+                    // PROSES FILE UPLOAD
+                    if($request->file('photo'))
+                    {
+                        
+                         //delete file yang lama
+                         $get_data = CasereportModel::with(['portofolio', 'path'])->where('trx_id', $request->trx_id)->first();
+                         $file = $get_data->path->path;
+                         $filePath = 'assets/img/posting/'.$file;
+                         unlink($filePath);
+                         //ending delete
+
+                        // PROSES FILE UPLOAD
+
+                        $random = Str::random(8);
+                        $file = $request->file('photo');
+                        $filename = $random.'.'.$file->getClientOriginalExtension();
+                        
+                        $tujuan_upload = 'assets/img/posting';
+                        $file->move($tujuan_upload, $filename);
+
+                        $insert_path        =   DB::table('path_portofolio')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'path'              => $filename
+                                                ]);
+                    }
+
+                    DB::commit();
+
+                    Toastr::success('Portofolio berhasil diupdate');
+                    return Redirect('list-portofolio');
+            
+            } catch (Exception $e) {
+                DB::rollback();
+                Toastr::error('Portofolio gagal di posting, silahkan coba lagi');
+                return \Redirect::back();
+            }
+
         }elseif($request->portofolio_id == 3)
         {
             DB::beginTransaction();
@@ -528,12 +647,74 @@ class PortofolioController extends Controller
             
             } catch (Exception $e) {
                 DB::rollback();
-                Toastr::error('Karya Ilmiah gagal di posting, silahkan coba lagi');
+                Toastr::error('Portofolio gagal di posting, silahkan coba lagi');
                 return \Redirect::back();
             }
+        }elseif($request->portofolio_id == 4)
+        {
+            
+            DB::beginTransaction();
+        
+            try {
+    
+                    $insert_portofolio      =   DB::table('trx_portofolio')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'stase_id'          => $request->stase_id,
+                                                    'supervisor_id'     => $request->supervisor_id,
+                                                    'ppds_id'           => Auth::user()->id,
+                                                    'update_date'       => now(),
+                                                    'update_id'         => Auth::user()->id
+                                                ]);
+    
+                    
+                    $insert_extrakulikuler  =   DB::table('trx_extrakulikuler')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'description'       => $request->description
+                                                ]);
+    
+                    // PROSES FILE UPLOAD
+                    if($request->file('photo'))
+                    {
+                        
+                         //delete file yang lama
+                         $get_data = ExtrakulikulerModel::with(['portofolio', 'path'])->where('trx_id', $request->trx_id)->first();
+                         $file = $get_data->path->path;
+                         $filePath = 'assets/img/posting/'.$file;
+                         unlink($filePath);
+                         //ending delete
+
+                        // PROSES FILE UPLOAD
+
+                        $random = Str::random(8);
+                        $file = $request->file('photo');
+                        $filename = $random.'.'.$file->getClientOriginalExtension();
+                        
+                        $tujuan_upload = 'assets/img/posting';
+                        $file->move($tujuan_upload, $filename);
+
+                        $insert_path        =   DB::table('path_portofolio')
+                                                    ->where('trx_id', $request->trx_id)
+                                                    ->update([
+                                                        'path'              => $filename
+                                                    ]);
+                    }
+    
+                    DB::commit();
+    
+                    Toastr::success('Portofolio berhasil diu[date');
+                    return Redirect('list-portofolio');
+            
+            } catch (Exception $e) {
+                DB::rollback();
+                Toastr::error('Portofolio gagal di posting, silahkan coba lagi');
+                return \Redirect::back();
+            }
+
         }else
         {
-
+            return abort(404);
         }
     }
 

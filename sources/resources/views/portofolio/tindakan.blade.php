@@ -56,7 +56,7 @@
                         <div class="input-wrapper">
                             <label class="label" for="hospital">Hospital</label>
                             <select class="form-control custom-select select2" id="hospital" name="hospital_id" required>
-                                <option value=''>Pilih Hospital </option>
+                                <option value="">Pilih Hospital </option>
                                 @foreach($data['hospital'] as $option)
                                 <option value="{{$option->hospital_id}}">{{$option->hospital_name}}</option>
                                 @endforeach
@@ -72,7 +72,7 @@
                         <div class="input-wrapper">
                             <label class="label" for="supervisor">Supervisor</label>
                             <select class="form-control custom-select" id="supervisor" name="supervisor_id" required>
-                                <option>Pilih Supervisor </option>
+                                <option value="">Pilih Supervisor </option>
                                 @foreach($data['supervisor'] as $option)
                                 <option value="{{$option->id}}">{{$option->user_name}}</option>
                                 @endforeach
@@ -88,7 +88,7 @@
                         <div class="input-wrapper">
                             <label class="label" for="kegiatan">Kegiatan</label>
                             <select class="form-control custom-select" id="kegiatan" name="stase_id">
-                                <option value="0">Pilih Kegiatan</option>
+                                <option value="">Pilih Kegiatan</option>
                                 @foreach($data['stase'] as $option)
                                 <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
                                 @endforeach
@@ -103,7 +103,7 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="description">Deskripsi Kegiatan</label>
-                            <textarea id="description" rows="2" class="form-control" name="description" required name="deskripsi"></textarea>
+                            <textarea id="description" rows="2" class="form-control" name="description" required></textarea>
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>

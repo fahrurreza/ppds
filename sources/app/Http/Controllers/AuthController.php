@@ -60,19 +60,16 @@ class AuthController extends Controller
 
     public function registration_store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'user_name'     => 'required',
             'phone'         => 'required',
             'gender'        => 'required',
             'email'         => 'required | unique:stp_user',
             'password'      => 'required | min:6',
-            'password2'     => 'required_with:password|same:password|min:6'
+            'password2'     => 'required_with:password|same:password'
         ]);
 
-        if ($validator->fails()) {
-            Toastr::error('Register Gagal,'. $validator->messages());
-            return \Redirect::back();
-        } else {
+        
 
             $insert =   DB::table('stp_user')->insert([
                             'user_name'     => $request->user_name,
@@ -94,7 +91,7 @@ class AuthController extends Controller
                 Toastr::error('Register Gagal');
                 return \Redirect::back();
             }
-        }
+        
 
 
     }

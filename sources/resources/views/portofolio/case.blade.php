@@ -56,8 +56,8 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="kegiatan">Kegiatan</label>
-                                <select class="form-control custom-select" id="kegiatan" name="stase_id">
-                                    <option value="0">Pilih Stase</option>
+                                <select class="form-control custom-select" id="kegiatan" name="stase_id" required>
+                                    <option value="">Pilih Stase</option>
                                     @foreach($data['stase'] as $option)
                                     <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
                                     @endforeach
@@ -73,7 +73,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="presenter">Nama Presenter</label>
-                                <input type="text" class="form-control" id="presenter" name="presenter">
+                                <input type="text" class="form-control" id="presenter" name="presenter" required>
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -85,8 +85,8 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="supervisor">DPJP Pasien</label>
-                                <select class="form-control custom-select" id="supervisor" name="supervisor_id">
-                                    <option>Pilih Supervisor </option>
+                                <select class="form-control custom-select" id="supervisor" name="supervisor_id" required>
+                                    <option value="">Pilih Supervisor </option>
                                     @foreach($data['supervisor'] as $option)
                                     <option value="{{$option->id}}">{{$option->user_name}}</option>
                                     @endforeach
@@ -102,7 +102,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="address5">Deskripsi</label>
-                                <textarea id="address5" name="description" rows="2" class="form-control"></textarea>
+                                <textarea id="address5" name="description" rows="2" class="form-control" required></textarea>
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -112,7 +112,7 @@
                         <div class="form-group boxed">
                             <label class="label" >Foto Kegiatan</label>
                             <div class="custom-file-upload">
-                                <input type="file" id="fileuploadInput" name="photo" accept="image/*" capture="camera">
+                                <input type="file" id="fileuploadInput" name="photo" accept="image/*" capture="camera" required>
                                 <label for="fileuploadInput">
                                     <span>
                                         <strong>

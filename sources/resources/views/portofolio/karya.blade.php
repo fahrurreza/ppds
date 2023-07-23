@@ -56,8 +56,8 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="kegiatan">Kegiatan</label>
-                                <select class="form-control custom-select" id="kegiatan" name="stase_id">
-                                    <option value="0">Pilih Stase</option>
+                                <select class="form-control custom-select" id="kegiatan" name="stase_id" required>
+                                    <option value="">Pilih Stase</option>
                                     @foreach($data['stase'] as $option)
                                     <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
                                     @endforeach
@@ -73,8 +73,8 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="jenis_karya_ilmiah">Jenis Karya Ilmiah</label>
-                                <select class="form-control custom-select" id="jenis_karya_ilmiah" name="jenis_karya_ilmiah">
-                                    <option>Pilih Jenis Karya Ilmiah </option>
+                                <select class="form-control custom-select" id="jenis_karya_ilmiah" name="jenis_karya_ilmiah" required>
+                                    <option value="">Pilih Jenis Karya Ilmiah </option>
                                     <option value="Proposal Penelitian">Proposal Penelitian</option>
                                     <option value="Hasil Tesis">Hasil Tesis</option>
                                     <option value="Case Report">Case Report</option>
@@ -97,7 +97,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="judul">Judul Karya Ilmiah</label>
-                                <input type="text" class="form-control" id="judul" name="judul">
+                                <input type="text" class="form-control" id="judul" name="judul" required>
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -109,8 +109,8 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="supervisor">Supervisor</label>
-                                <select class="form-control custom-select" id="supervisor" name="supervisor_id">
-                                    <option>Pilih Supervisor </option>
+                                <select class="form-control custom-select" id="supervisor" name="supervisor_id" required>
+                                    <option value="">Pilih Supervisor </option>
                                     @foreach($data['supervisor'] as $option)
                                     <option value="{{$option->id}}">{{$option->user_name}}</option>
                                     @endforeach
@@ -126,7 +126,7 @@
                         <div class="form-group boxed">
                             <label class="label" >Softcopy</label>
                             <div class="custom-file-upload">
-                                <input type="file" id="fileuploadInput" name="file" accept=".pptx, .pdf">
+                                <input type="file" id="fileuploadInput" name="file" accept=".pptx, .pdf" required>
                                 <label for="fileuploadInput">
                                     <span>
                                         <strong>
@@ -141,7 +141,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="address5">Deskripsi Kegiatan</label>
-                                <textarea id="address5" rows="2" class="form-control"></textarea>
+                                <textarea id="address5" rows="2" class="form-control" required></textarea>
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>

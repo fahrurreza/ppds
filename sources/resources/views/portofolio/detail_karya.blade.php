@@ -52,7 +52,7 @@
                     <form id="update" action="{{route('update-portofolio')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="trx_id" value="{{$data['portofolio']->trx_id}}">
-                        <input type="hidden" name="portofolio_id" value="{{$data['portofolio']->portofolio->id}}">
+                        <input type="hidden" name="portofolio_id" value="{{$data['portofolio']->portofolio->portofolio_id}}">
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="kegiatan">Kegiatan</label>

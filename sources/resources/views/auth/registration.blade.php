@@ -53,42 +53,48 @@
             <div class="section mt-2 mb-5">
                 <form action="{{route('registration')}}" method="POST" enctype='multipart/form-data'>
                     @csrf
+                    
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <input type="text" class="form-control" id="name1" placeholder="FULL NAME"
-                                style="text-transform:uppercase" name="user_name" required>
+                                style="text-transform:uppercase" name="user_name" value="{{old('user_name')}}" required>
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
                         </div>
                     </div>
 
-                    <div class=" mt-1 text-left">
-                        <div class="custom-control custom-radio mb-1">
-                            <input type="radio" id="customRadio1" name="gender" class="custom-control-input" value="1">
-                            <label class="custom-control-label" for="customRadio1">Male</label>
-                        </div>
-                        <div class="custom-control custom-radio mb-1">
-                            <input type="radio" id="customRadio2" name="gender" class="custom-control-input" value="2">
-                            <label class="custom-control-label" for="customRadio2">Female</label>
-                        </div>
-
-                    </div>
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="number" class="form-control" placeholder="PHONE" name="phone" required>
+                            <select class="form-control custom-select" name="gender" id="gender" required>
+                                <option value="">Gender</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group boxed">
+                        <div class="input-wrapper">
+                            <input type="number" class="form-control" placeholder="PHONE" name="phone" value="{{old('phone')}}" required>
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
+                            @error('phone')
+                            <div class="text-danger" style="text-align:left">Nomor telah digunakan</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <input type="email" class="form-control" id="email1" placeholder="EMAIL ADDRESS"
-                                name="email" required>
+                                name="email" value="{{old('email')}}" required>
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
+                            @error('email')
+                            <div class="text-danger" style="text-align:left">Email telah digunakan</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -99,6 +105,9 @@
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
+                            @error('password')
+                            <div class="text-danger" style="text-align:left">Password minimal 6 character</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -109,6 +118,9 @@
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
+                            @error('password2')
+                            <div class="text-danger" style="text-align:left">Password tidak sama</div>
+                            @enderror
                         </div>
                     </div>
 
