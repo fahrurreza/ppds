@@ -87,7 +87,7 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <label class="label" for="kegiatan">Kegiatan</label>
-                            <select class="form-control custom-select" id="kegiatan" name="stase_id" required>
+                            <select class="form-control custom-select" id="kegiatan" name="stase_id">
                                 <option value="">Pilih Kegiatan</option>
                                 @foreach($data['stase'] as $option)
                                 <option value="{{$option->stase_id}}">{{$option->stase_name}}</option>
