@@ -62,7 +62,7 @@
                         <div>
                             <a href="{{route('registration')}}">Register Now</a>
                         </div>
-                        <div><a href="page-forgot-password.php" class="text-muted">Forgot Password?</a></div>
+                        <!-- <div><a href="page-forgot-password.php" class="text-muted">Forgot Password?</a></div> -->
                     </div>
 
                     <div class="form-button-group">

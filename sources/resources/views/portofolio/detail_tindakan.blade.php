@@ -55,7 +55,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="hospital">Hospital</label>
-                                <select class="form-control custom-select select2" id="hospital" name="hospital_id">
+                                <select class="form-control custom-select select2" id="hospital" name="hospital_id" @if($data['portofolio']->portofolio->status == 5) disabled @endif>
                                     @foreach($data['hospital'] as $option)
                                         @if($option->hospital_id == $data['portofolio']->hospital_id)
                                         <option selected value="{{$option->hospital_id}}">{{$option->hospital_name}}</option>
@@ -74,7 +74,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="supervisor">Supervisor</label>
-                                <select class="form-control custom-select" id="supervisor" name="supervisor_id">
+                                <select class="form-control custom-select" id="supervisor" name="supervisor_id" @if($data['portofolio']->portofolio->status == 5) disabled @endif>
                                     @foreach($data['supervisor'] as $option)
                                         @if($data['portofolio']->portofolio->supervisor_id == $option->id)
                                         <option selected value="{{$option->id}}">{{$option->user_name}}</option>
@@ -93,7 +93,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="kegiatan">Kegiatan</label>
-                                <select class="form-control custom-select" id="kegiatan" name="stase_id">
+                                <select class="form-control custom-select" id="kegiatan" name="stase_id" @if($data['portofolio']->portofolio->status == 5) disabled @endif>
                                     @foreach($data['stase'] as $option)
                                         @if($data['portofolio']->portofolio->stase_id == $option->stase_id)
                                         <option selected value="{{$option->stase_id}}">{{$option->stase_name}}</option>
@@ -112,7 +112,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="description">Deskripsi Kegiatan</label>
-                                <textarea id="description" rows="2" class="form-control" name="description">{{$data['portofolio']->description}}</textarea>
+                                <textarea id="description" rows="2" class="form-control" name="description" @if($data['portofolio']->portofolio->status == 5) disabled @endif>{{$data['portofolio']->description}}</textarea>
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -121,7 +121,7 @@
                         <div class="form-group boxed">
                             <label class="label" >Foto Kegiatan</label>
                             <div class="custom-file-upload">
-                                <input type="file" id="fileuploadInput" name="photo" accept="image/*" >
+                                <input type="file" id="fileuploadInput" name="photo" accept="image/*" @if($data['portofolio']->portofolio->status == 5) disabled @endif>
                                 <label for="fileuploadInput">
                                     <div class="item">
                                         <span>
@@ -157,7 +157,7 @@
 <!-- * App Capsule -->
 
 @push('custom-scripts')
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
     <script src="{{asset('assets/js/portofolioform.js')}}"></script>
     <script>

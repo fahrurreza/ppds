@@ -24,7 +24,6 @@ class PortofolioController extends Controller
     {
         $postofolio =    DB::table('trx_portofolio')
                         ->where('ppds_id', Auth::user()->id)
-                        ->where('status', '!=', 5)
                         ->get();
 
         $data = [
