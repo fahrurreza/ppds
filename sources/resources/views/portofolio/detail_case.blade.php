@@ -55,7 +55,7 @@
                 <div class="form-group boxed">
                     <div class="input-wrapper">
                         <label class="label" for="kegiatan">Kegiatan</label>
-                        <select class="form-control custom-select" id="kegiatan" name="stase_id" @if($data['portofolio']->portofolio->status == 5) disabled @endif>
+                        <select class="form-control custom-select" id="kegiatan" name="stase_id" disabled>
                             @foreach($data['stase'] as $option)
                                 @if($data['portofolio']->portofolio->stase_id == $option->stase_id)
                                 <option selected value="{{$option->stase_id}}">{{$option->stase_name}}</option>
@@ -131,7 +131,7 @@
                         
                 </div>
             </form>
-            @if($data['portofolio']->portofolio->status == 1)
+            @if($data['portofolio']->portofolio->status == 1 | $data['portofolio']->portofolio->status == 2)
             <div class="row">
                 <div class="col-6">
                     <button type="button" class="btn btn-primary btn-block" id="save">Save</button>

@@ -492,6 +492,33 @@ class PortofolioController extends Controller
                                                 'description'       => $request->description
                                             ]);
 
+
+                    if($request->file('photo'))
+                    {
+                        
+                         //delete file yang lama
+                         $get_data = TindakanModel::with(['portofolio', 'path'])->where('trx_id', $request->trx_id)->first();
+                         $file = $get_data->path->path;
+                         $filePath = 'assets/img/posting/'.$file;
+                         unlink($filePath);
+                         //ending delete
+
+                        // PROSES FILE UPLOAD
+
+                        $random = Str::random(8);
+                        $file = $request->file('photo');
+                        $filename = $random.'.'.$file->getClientOriginalExtension();
+                        
+                        $tujuan_upload = 'assets/img/posting';
+                        $file->move($tujuan_upload, $filename);
+
+                        $insert_path        =   DB::table('path_portofolio')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'path'              => $filename
+                                                ]);
+                    }
+
                     DB::commit();
 
                     Toastr::success('Portofolio berhasil diupdate');
@@ -527,6 +554,32 @@ class PortofolioController extends Controller
                                                     'description'       => $request->description
                                                 ]);
 
+                    // PROSES FILE UPLOAD
+                    if($request->file('photo'))
+                    {
+                        
+                         //delete file yang lama
+                         $get_data = CasereportModel::with(['portofolio', 'path'])->where('trx_id', $request->trx_id)->first();
+                         $file = $get_data->path->path;
+                         $filePath = 'assets/img/posting/'.$file;
+                         unlink($filePath);
+                         //ending delete
+
+                        // PROSES FILE UPLOAD
+
+                        $random = Str::random(8);
+                        $file = $request->file('photo');
+                        $filename = $random.'.'.$file->getClientOriginalExtension();
+                        
+                        $tujuan_upload = 'assets/img/posting';
+                        $file->move($tujuan_upload, $filename);
+
+                        $insert_path        =   DB::table('path_portofolio')
+                                                ->where('trx_id', $request->trx_id)
+                                                ->update([
+                                                    'path'              => $filename
+                                                ]);
+                    }
 
                     DB::commit();
 
@@ -564,6 +617,27 @@ class PortofolioController extends Controller
                                                     'description'       => $request->description
                                                 ]);
 
+                    // PROSES FILE UPLOAD
+                    if($request->file != null)
+                    {
+                        //delete file yang lama
+                        $get_data = KaryailmiahModel::with(['portofolio', 'path'])->where('trx_id', $request->trx_id)->first();
+                        $file = $get_data->path->path;
+                        $filePath = 'assets/img/posting/'.$file;
+                        unlink($filePath);
+                        //ending delete
+
+                        $random = Str::random(8);
+                        $file = $request->file('file');
+                        $filename = $random.'.'.$file->getClientOriginalExtension();
+                        
+                        $tujuan_upload = 'assets/img/posting';
+                        $file->move($tujuan_upload, $filename);
+
+                        $insert_path            =   DB::table('path_portofolio')
+                                                    ->where('trx_id', $request->trx_id)
+                                                    ->update(['path' => $filename]);
+                    }
 
                     DB::commit();
 
@@ -600,6 +674,32 @@ class PortofolioController extends Controller
                                                     'description'       => $request->description
                                                 ]);
     
+                    // PROSES FILE UPLOAD
+                    if($request->file('photo'))
+                    {
+                        
+                         //delete file yang lama
+                         $get_data = ExtrakulikulerModel::with(['portofolio', 'path'])->where('trx_id', $request->trx_id)->first();
+                         $file = $get_data->path->path;
+                         $filePath = 'assets/img/posting/'.$file;
+                         unlink($filePath);
+                         //ending delete
+
+                        // PROSES FILE UPLOAD
+
+                        $random = Str::random(8);
+                        $file = $request->file('photo');
+                        $filename = $random.'.'.$file->getClientOriginalExtension();
+                        
+                        $tujuan_upload = 'assets/img/posting';
+                        $file->move($tujuan_upload, $filename);
+
+                        $insert_path        =   DB::table('path_portofolio')
+                                                    ->where('trx_id', $request->trx_id)
+                                                    ->update([
+                                                        'path'              => $filename
+                                                    ]);
+                    }
     
                     DB::commit();
     

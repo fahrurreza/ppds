@@ -93,7 +93,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="kegiatan">Kegiatan</label>
-                                <select class="form-control custom-select" id="kegiatan" name="stase_id" @if($data['portofolio']->portofolio->status == 5) disabled @endif>
+                                <select class="form-control custom-select" id="kegiatan" name="stase_id" disabled>
                                     @foreach($data['stase'] as $option)
                                         @if($data['portofolio']->portofolio->stase_id == $option->stase_id)
                                         <option selected value="{{$option->stase_id}}">{{$option->stase_name}}</option>
@@ -121,7 +121,6 @@
                         <div class="form-group boxed">
                             <label class="label" >Foto Kegiatan</label>
                             <div class="custom-file-upload">
-                                <input type="file" id="fileuploadInput" name="photo" accept="image/*" @if($data['portofolio']->portofolio->status == 5) disabled @endif>
                                 <label for="fileuploadInput">
                                     <div class="item">
                                         <span>
@@ -135,7 +134,7 @@
                                 
                         </div>
                     </form>
-                    @if($data['portofolio']->portofolio->status == 1)
+                    @if($data['portofolio']->portofolio->status == 1 | $data['portofolio']->portofolio->status == 2)
                     
                         <div class="row">
                             <div class="col-6">
@@ -163,7 +162,7 @@
     <script>
         $(document).ready(function() {
             $('#supervisor').select2();
-            $('#jenis_karya_ilmiah').select2();
+            $('#hospital').select2();
             $('#kegiatan').select2();
         });
     </script>

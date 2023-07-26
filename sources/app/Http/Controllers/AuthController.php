@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User as UserModel;
+use App\Models\Resetpassword as ResetpasswordModel;
 use Toastr;
 use Hash;
 use Auth;
 use Validator;
 use DB;
+use App\Mail\resetPassword;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
 
 class AuthController extends Controller
 {
@@ -130,6 +134,95 @@ class AuthController extends Controller
         else
         {
             Toastr::error('Password gagal update!');
+            return \Redirect::back();
+        }
+    }
+
+    public function reset_password()
+    {
+        return view('auth.resetpassword');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $cek_user = UserModel::where('email', $request->email)->first();
+
+            if(!$cek_user)
+            {
+                Toastr::error('Email tidak ditemukan');
+                return \Redirect::back();
+            }
+
+            $otp        = rand(111111, 999999);
+            $resetLink  = encrypt($otp);;
+    
+            $time_start = date("Y-m-d H:i:s");
+            $time_end = date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime($time_start)));
+    
+            
+            Mail::to($request->email)->send(new resetPassword($resetLink));
+
+            DB::table('reset_password')->insert([
+                'email'             => $request->email,
+                'code'              => $otp,
+                'start'             => $time_start,
+                'end'               => $time_end
+            ]);
+
+            DB::commit();
+
+            Toastr::success('Kami sudah mengirimi anda pesan. Cek email untuk melakukan reset password');
+            return \Redirect::back();
+        
+        } catch (Exception $e) {
+            DB::rollback();
+            Toastr::error('Portofolio di posting, silahkan coba lagi');
+            return \Redirect::back();
+        }
+
+    }
+
+    public function user_reset_password($link)
+    {
+        $code = decrypt($link);
+
+        $cekLink =   ResetpasswordModel::where('code', $code)->first();
+
+        if(!$cekLink)
+        {
+            return abort(404);
+        }else{
+            $data = [
+                'email' => $cekLink->email
+            ];
+            
+            return view('email.set_password', compact('data'));
+        }
+        
+    }
+
+    public function set_password(Request $request)
+    {
+        $request->validate([
+            'password'      => 'required | min:6',
+            'password2'     => 'required_with:password|same:password'
+        ]);
+
+        $data_update = [
+            'password' => Hash::make($request->password_update),
+        ];
+        
+        $update = UserModel::where('email', $request->email)->update($data_update);
+
+        if($update){
+            Toastr::success('Register berhasil, silahkan login');
+            return Redirect('login');
+        }else{
+            Toastr::error('Register Gagal');
             return \Redirect::back();
         }
     }
