@@ -157,74 +157,30 @@ class AuthController extends Controller
                 return \Redirect::back();
             }
 
-            $otp        = rand(111111, 999999);
-            $resetLink  = encrypt($otp);;
-    
-            $time_start = date("Y-m-d H:i:s");
-            $time_end = date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime($time_start)));
+            $resetLink = Str::random(6);
+            $newPassword = Hash::make($resetLink);
     
             
             Mail::to($request->email)->send(new resetPassword($resetLink));
 
             DB::table('reset_password')->insert([
                 'email'             => $request->email,
-                'code'              => $otp,
-                'start'             => $time_start,
-                'end'               => $time_end
+                'create_date'       => now()
             ]);
+
+            UserModel::where('email', $request->email)->update(['password'  => $newPassword]);
 
             DB::commit();
 
-            Toastr::success('Kami sudah mengirimi anda pesan. Cek email untuk melakukan reset password');
+            Toastr::success('Password berhasil direset. Silahkan cek email anda');
             return \Redirect::back();
         
         } catch (Exception $e) {
             DB::rollback();
-            Toastr::error('Portofolio di posting, silahkan coba lagi');
+            Toastr::error('Password gagal diupdate, silahkan coba lagi');
             return \Redirect::back();
         }
 
-    }
-
-    public function user_reset_password($link)
-    {
-        $code = decrypt($link);
-
-        $cekLink =   ResetpasswordModel::where('code', $code)->first();
-
-        if(!$cekLink)
-        {
-            return abort(404);
-        }else{
-            $data = [
-                'email' => $cekLink->email
-            ];
-            
-            return view('email.set_password', compact('data'));
-        }
-        
-    }
-
-    public function set_password(Request $request)
-    {
-        $request->validate([
-            'password'      => 'required | min:6',
-            'password2'     => 'required_with:password|same:password'
-        ]);
-
-        $data_update = [
-            'password' => Hash::make($request->password_update),
-        ];
-        
-        $update = UserModel::where('email', $request->email)->update($data_update);
-
-        if($update){
-            Toastr::success('Register berhasil, silahkan login');
-            return Redirect('login');
-        }else{
-            Toastr::error('Register Gagal');
-            return \Redirect::back();
-        }
     }
 
     public function logout()

@@ -34,38 +34,16 @@
                 <img src="{{asset('assets/img/sample/photo/vector4.png')}}" alt="image" class="form-image">
             </div>
             <div class="section mt-1">
-                <p>Silahkan klick tombol dibawah ini untuk melakukan reset password. Halaman ini berlaku selama 5 menit sebelum kadaluarsa</p>
+                <p>Jangan beritahu pesan ini kepada siapapun. Silahkan login menggunakan email dan password berikut :</p>
             </div>
             <div class="section mt-1 mb-5">
-                <a href="{{url('user-reset-password/'.$resetLink)}}" class="btn btn-primary btn-block btn-lg">Open Link</button>
+                <h1>{{$newPassword}}</h1>
             </div>
         </div>
 
 
     </div>
     <!-- * App Capsule -->
-
-
-    <!-- ///////////// Js Files ////////////////////  -->
-    <!-- Jquery -->
-    <script src="{{asset('assets/js/lib/jquery-3.4.1.min.js')}}"></script>
-    <!-- Bootstrap-->
-    <script src="{{asset('assets/js/lib/popper.min.js')}}"></script>
-    <script src="{{asset('assets/js/lib/bootstrap.min.js')}}"></script>
-    <!-- Ionicons -->
-    <script type="module" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.js')}}"></script>
-    <!-- Owl Carousel -->
-    <script src="{{asset('assets/js/plugins/owl-carousel/owl.carousel.min.js')}}"></script>
-    <!-- jQuery Circle Progress -->
-    <script src="{{asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js')}}"></script>
-    <!-- Base Js File -->
-    <script src="{{asset('assets/js/base.js')}}"></script>
-    
-    <script>
-    setTimeout(() => {
-        notification('notification-1', 10000);
-    }, 2000);
-    </script>
 
 </body>
 

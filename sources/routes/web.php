@@ -26,6 +26,7 @@ Route::middleware('guest')->group(function() {
     Route::post('/post-reset-password', 'AuthController@resetPassword')->name('post-reset-password');
     Route::get('/user-reset-password/{link}', 'AuthController@user_reset_password')->name('user-reset-password');
     Route::post('/update-password', 'AuthController@set_password')->name('update-password');
+    Route::get('/tes', 'SendEmailController@resetPassword')->name('tes');
     
 });
 
@@ -43,7 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/karya-portofolio', 'PortofolioController@karya_portofolio')->name('karya-portofolio');
     Route::get('/tindakan-portofolio', 'PortofolioController@tindakan_portofolio')->name('tindakan-portofolio');
     Route::get('/profile', 'ProfileController@index')->name('profile');
-    Route::get('/tes', 'SendEmailController@resetPassword')->name('reset-password');
 
     //PORTOFOLIO
     Route::post('/post_tindakan', 'PortofolioController@post_tindakan')->name('post-tindakan');

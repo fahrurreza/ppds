@@ -18,9 +18,9 @@ class SendEMailController extends Controller
         $time_end = date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime($time_start)));
 
         
-    Mail::to('futrimardiani@gmail.com')->send(new resetPassword());
+        Mail::to('futrimardiani@gmail.com')->send(new resetPassword());
 
-    return "Test email sent!";
+        return "Test email sent!";
 
     }
 }
