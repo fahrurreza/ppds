@@ -47,7 +47,6 @@ class PortofolioController extends Controller
                 'page'          => 'Detail Protofolio Tindakan',
                 'portofolio'    => TindakanModel::with(['portofolio', 'path', 'revision'])->where('trx_id', $trx_id)->first()
             ];
-            return $data['portofolio']->revision;
 
             return view('portofolio.detail_tindakan', compact('data'));
 

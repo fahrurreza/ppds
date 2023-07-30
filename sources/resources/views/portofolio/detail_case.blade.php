@@ -10,7 +10,7 @@
 <div id="appCapsule">
 
     <div class="section full mt-2 mb-2">
-        <div class="section-title">Masukkan Data dengan Benar dan Teliti</div>
+        <div class="section-title">Masukkan Data dengan Benar dan Teliti.</div>
         <div class="wide-block pb-1 pt-2">
 
             <div class="form-group boxed">
