@@ -45,8 +45,9 @@ class PortofolioController extends Controller
                 'hospital'      => HospitalModel::all(),
                 'stase'         => StaseModel::all(),
                 'page'          => 'Detail Protofolio Tindakan',
-                'portofolio'    => TindakanModel::with(['portofolio', 'path'])->where('trx_id', $trx_id)->first()
+                'portofolio'    => TindakanModel::with(['portofolio', 'path', 'revision'])->where('trx_id', $trx_id)->first()
             ];
+            return $data['portofolio']->revision;
 
             return view('portofolio.detail_tindakan', compact('data'));
 
@@ -156,7 +157,6 @@ class PortofolioController extends Controller
     public function post_tindakan(Request $request)
     {
         DB::beginTransaction();
-
         try {
                 $trx_id = trx_id();
 
@@ -185,7 +185,7 @@ class PortofolioController extends Controller
                 $file = $request->file('photo');
                 $filename = $random.'.'.$file->getClientOriginalExtension();
                 
-                $tujuan_upload = 'assets/img/posting';
+                $tujuan_upload = path_portofolio();
                 $file->move($tujuan_upload, $filename);
 
                 $insert_path        =   DB::table('path_portofolio')->insert([
@@ -240,7 +240,7 @@ class PortofolioController extends Controller
                 $file = $request->file('photo');
                 $filename = $random.'.'.$file->getClientOriginalExtension();
                 
-                $tujuan_upload = 'assets/img/posting';
+                $tujuan_upload = path_portofolio();
                 $file->move($tujuan_upload, $filename);
 
                 $insert_path            =   DB::table('path_portofolio')->insert([
@@ -296,7 +296,7 @@ class PortofolioController extends Controller
                 $file = $request->file('file');
                 $filename = $random.'.'.$file->getClientOriginalExtension();
                 
-                $tujuan_upload = 'assets/img/posting';
+                $tujuan_upload = path_portofolio();
                 $file->move($tujuan_upload, $filename);
 
                 $insert_path            =   DB::table('path_portofolio')->insert([
@@ -341,7 +341,6 @@ class PortofolioController extends Controller
                 
                 $insert_extrakulikuler  =   DB::table('trx_extrakulikuler')->insert([
                                             'trx_id'            => $trx_id,
-                                            'kegiatan_id'       => 1,
                                             'description'       => $request->description
                                             ]);
 
@@ -351,7 +350,7 @@ class PortofolioController extends Controller
                 $file = $request->file('photo');
                 $filename = $random.'.'.$file->getClientOriginalExtension();
                 
-                $tujuan_upload = 'assets/img/posting';
+                $tujuan_upload = path_portofolio();
                 $file->move($tujuan_upload, $filename);
 
                 $insert_path            =   DB::table('path_portofolio')->insert([

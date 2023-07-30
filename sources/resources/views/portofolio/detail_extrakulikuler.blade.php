@@ -55,7 +55,7 @@
                         <div class="form-group boxed">
                             <div class="input-wrapper">
                                 <label class="label" for="kegiatan">Kegiatan</label>
-                                <select class="form-control custom-select" id="kegiatan" name="stase_id" disabled>
+                                <select class="form-control custom-select" id="kegiatan" name="stase_id" @if($data['portofolio']->portofolio->status == 5) disabled @endif>
                                     @foreach($data['stase'] as $option)
                                         @if($data['portofolio']->portofolio->stase_id == $option->stase_id)
                                         <option selected value="{{$option->stase_id}}">{{$option->stase_name}}</option>
@@ -102,6 +102,18 @@
                             </div>
                         </div>
 
+                        @if($data['portofolio']->portofolio->status == 2)
+                        <div class="form-group boxed">
+                            <div class="input-wrapper">
+                                <label class="label text-danger" for="description">Catatan Revisi *</label>
+                                <textarea id="description" rows="2" class="form-control text-danger" name="description"  disabled>{{$data['portofolio']->revision->note}}</textarea>
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                            </div>
+                        </div>
+                        @endif
+
                         <div class="form-group boxed">
                             <label class="label" >Foto Kegiatan</label>
                             <div class="custom-file-upload">
@@ -109,7 +121,7 @@
                                     <div class="item">
                                         <span>
                                             <strong>
-                                            <img src="{{asset('assets/img/posting/'.$data['portofolio']->path->path)}}" alt="" class="imaged w-100 square">
+                                            <img src="{{path_view().$data['portofolio']->path->path}}" alt="" class="imaged w-100 square">
                                             </strong>
                                         </span>
                                     </div>

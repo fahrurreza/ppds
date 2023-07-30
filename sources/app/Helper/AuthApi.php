@@ -69,4 +69,18 @@
         return $trx_id;
     }
 
+    function path_portofolio()
+    {
+        $path = '../lara-ppds/assets/ppds_path/posting';
+        // $path = '../adminpanel.ppdslogbook.com/assets/ppds_path/posting';
+        return $path;
+    }
+
+    function path_view()
+    {
+        $path = 'http://localhost/lara-ppds/assets/ppds_path/posting/';
+        // $path = 'https://adminpanel.ppdslogbook.com/assets/ppds_path/posting';
+        return $path;
+    }
+
    

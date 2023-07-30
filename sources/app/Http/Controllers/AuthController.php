@@ -11,9 +11,10 @@ use Hash;
 use Auth;
 use Validator;
 use DB;
-use App\Mail\resetPassword;
+use App\Mail\ResetPassword;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
+use Str;
 
 class AuthController extends Controller
 {
@@ -161,7 +162,7 @@ class AuthController extends Controller
             $newPassword = Hash::make($resetLink);
     
             
-            Mail::to($request->email)->send(new resetPassword($resetLink));
+            Mail::to($request->email)->send(new ResetPassword($resetLink));
 
             DB::table('reset_password')->insert([
                 'email'             => $request->email,

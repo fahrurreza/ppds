@@ -37,7 +37,7 @@
                 <p>Jangan beritahu pesan ini kepada siapapun. Silahkan login menggunakan email dan password berikut :</p>
             </div>
             <div class="section mt-1 mb-5">
-                <h1>{{$newPassword}}</h1>
+                <h1>{{$resetLink}}</h1>
             </div>
         </div>
 

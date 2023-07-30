@@ -15,4 +15,9 @@ class Casereport extends Model
     public function path() {
         return $this->hasOne('App\Models\Pathportofolio', 'trx_id', 'trx_id');
     }
+
+    public function revision()
+    {
+        return $this->hasOne('App\Models\Revision', 'trx_id', 'trx_id')->latest('id');
+    }
 }
