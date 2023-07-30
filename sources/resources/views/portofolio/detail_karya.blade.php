@@ -13,7 +13,15 @@
         <div class="section full mt-2 mb-2">
             <div class="section-title">Masukkan Data dengan Benar dan Teliti.</div>
                 <div class="wide-block pb-1 pt-2">
-
+                    @if($data['portofolio']->portofolio->status == 2)
+                    <div class="alert alert-warning mb-2 alert-dismissible fade show" role="alert">
+                        <h4 class="alert-title">Revision!</h4>
+                        {{$data['portofolio']->revision->note}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
+                    </div>
+                    @endif
                             
                     <div class="form-group boxed">
                         <label class="label" for="city5">Portofolio</label>
@@ -147,18 +155,6 @@
                                 </i>
                             </div>
                         </div>
-
-                        @if($data['portofolio']->portofolio->status == 2)
-                        <div class="form-group boxed">
-                            <div class="input-wrapper">
-                                <label class="label text-danger" for="description">Catatan Revisi *</label>
-                                <textarea id="description" rows="2" class="form-control text-danger" name="description"  disabled>{{$data['portofolio']->revision->note}}</textarea>
-                                <i class="clear-input">
-                                    <ion-icon name="close-circle"></ion-icon>
-                                </i>
-                            </div>
-                        </div>
-                        @endif
 
                     </form>
                     
